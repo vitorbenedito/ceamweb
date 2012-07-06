@@ -1,5 +1,8 @@
 class CreateProdutos < ActiveRecord::Migration
   def change
+    
+    drop_table :produtos if self.table_exists?("produtos")
+    
     create_table :produtos do |t|
       t.integer :idProduto
       t.decimal :qtdeAferida
