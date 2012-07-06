@@ -1,27 +1,40 @@
-<h1>Listing produtos</h1>
+<h2>Produtos Aferidos
+	 <div style='text-align:right; width:100%;'>
+		<%= link_to 'Aferir Produto', new_produto_path, :class => 'btn btn-primary' %>
+	</div>
+</h2>
 
-<table>
-  <tr>
-    <th>Idproduto</th>
-    <th>Idlocalizacao</th>
-    <th>Qtdeencontrada</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<table class="table table-bordered table-striped table-condensed" >
+ <thead>
+  	<tr>
+		<th>Localização</th>
+    	<th>Produto</th>
+		<th>Qtde. Em Estoque</th>
+    	<th>Qtde. Aferida</th>
+    	<th></th>
+    	<th></th>
+    	<th></th>
+  	</tr>
+ </thead>
+ <tbody>
 <% @produtos.each do |produto| %>
   <tr>
-    <td><%= produto.idProduto %></td>
-    <td><%= produto.idLocalizacao %></td>
-    <td><%= produto.qtdeEncontrada %></td>
-    <td><%= link_to 'Show', produto %></td>
-    <td><%= link_to 'Edit', edit_produto_path(produto) %></td>
-    <td><%= link_to 'Destroy', produto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td width='30%'><%= produto.localizacao.descricao %></td>
+    <td width='30%'><%= produto.nomeProduto %></td>
+	<td width='20%'><%= produto.estoque %></td>
+    <td width='20%'><%= produto.qtdeAferida %></td>
+	<td><%= link_to raw('<i class="icon-search icon-white"></i>'), produto ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
+    <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_produto_path(produto),:class => 'btn btn-danger', :title => 'Alterar' %></td>
+    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), produto, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>
   </tr>
 <% end %>
+<tr>
+	<td colspan='6'>
+		<%= will_paginate @produtos , :align => "center"%>
+	</td>
+</tr>
+</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Produto', new_produto_path %>

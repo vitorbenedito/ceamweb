@@ -13,3 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function() {
+  $("#localizacaos th a, #localizacaos .pagination a").live("click", function() {
+    $.getScript(this.href);
+    return false;
+  });
+  $("#localizacaos_search input").keyup(function() {
+    $.get($("localizacaos_search").attr("action"), $("#localizacaos_search").serialize(), null, "script");
+    return false;
+  });
+});

@@ -1,9 +1,23 @@
 class ProdutosController < ApplicationController
   # GET /produtos
   # GET /produtos.json
+  
+  require 'open-uri'
+  require 'json'
+  
   def index
-    @produtos = Produto.all
-
+    @produtos = Produto.paginate(:page => params[:page], :per_page => 10)
+    
+    @produtos.each do |p|
+      
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      
+      produtoVPSA = HTTParty.get(url)
+    
+      p.nomeProduto = produtoVPSA['descricao']
+      p.estoque = produtoVPSA['quantidadeEmEstoque']
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @produtos }
