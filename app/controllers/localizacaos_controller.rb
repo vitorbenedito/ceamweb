@@ -14,10 +14,20 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/1.json
   def show
     @localizacao = Localizacao.find(params[:id])
-
+    
+    @localizacao.produtos.each do |p|
+      
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      
+      produtoVPSA = HTTParty.get(url)
+    
+      p.nomeProduto = produtoVPSA['descricao']
+      p.estoque = produtoVPSA['quantidadeEmEstoque']
+    end
+     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @localizacao }
+      format.json { render json: @localizacao.produtos.to_json(:methods => [:nomeProduto,:estoque])}
     end
   end
 
