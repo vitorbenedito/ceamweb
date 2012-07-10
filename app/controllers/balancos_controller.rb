@@ -43,7 +43,7 @@ class BalancosController < ApplicationController
     @balanco = Balanco.new(params[:balanco])
 
     respond_to do |format|
-      if @balanco.save
+      if @balanco.save 
         
         params[:produtosAferidos].each do |p|
           @produtoAferido = ProdutoAferido.new();
