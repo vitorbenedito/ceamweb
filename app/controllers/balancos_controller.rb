@@ -45,12 +45,12 @@ class BalancosController < ApplicationController
     respond_to do |format|
       if @balanco.save 
         
-        params[:produtosAferidos].each do |p|
+        
           @produtoAferido = ProdutoAferido.new();
-          @produtoAferido.idProduto = p['idProduto'];
+          @produtoAferido.idProduto = 1;
+          @produtoAferido.qtdeAferida = 1;
           @produtoAferido.balanco_id = @balanco.id
           @produtoAferido.save
-        end
           
         
         format.html { redirect_to @balanco, notice: 'Balanco was successfully created.' }
