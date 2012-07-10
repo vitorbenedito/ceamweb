@@ -48,7 +48,7 @@ class BalancosController < ApplicationController
         params[:produtosAferidos].each do |p|
           @produtoAferido = ProdutoAferido.new();
           @produtoAferido.idProduto = p['idProduto'];
-          @produtoAferido.balanco = @balanco
+          @produtoAferido.balanco_id = @balanco.id
           @produtoAferido.save
         end
           
