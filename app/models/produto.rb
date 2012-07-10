@@ -1,6 +1,6 @@
 class Produto < ActiveRecord::Base
   
-  attr_accessible :idProduto, :qtdeAferida, :localizacao_id
+  attr_accessible :idProduto, :localizacao_id
   
   attr_accessor :nomeProduto, :estoque
   

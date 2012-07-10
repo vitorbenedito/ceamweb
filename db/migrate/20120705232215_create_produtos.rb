@@ -5,7 +5,6 @@ class CreateProdutos < ActiveRecord::Migration
     
     create_table :produtos do |t|
       t.integer :idProduto
-      t.decimal :qtdeAferida
       t.references :localizacao
 
       t.timestamps

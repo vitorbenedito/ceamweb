@@ -1,6 +1,6 @@
 <h2>Produtos Aferidos
 	 <div style='text-align:right; width:100%;'>
-		<%= link_to 'Aferir Produto', new_produto_path, :class => 'btn btn-primary' %>
+		<%= link_to 'Organizar Estoque', new_produto_path, :class => 'btn btn-primary' %>
 	</div>
 </h2>
 
@@ -9,8 +9,6 @@
   	<tr>
 		<th>Localização</th>
     	<th>Produto</th>
-		<th>Qtde. Em Estoque</th>
-    	<th>Qtde. Aferida</th>
     	<th></th>
     	<th></th>
     	<th></th>
@@ -21,8 +19,6 @@
   <tr>
 	<td width='30%'><%= produto.localizacao.descricao %></td>
     <td width='30%'><%= produto.nomeProduto %></td>
-	<td width='20%'><%= produto.estoque %></td>
-    <td width='20%'><%= produto.qtdeAferida %></td>
 	<td><%= link_to raw('<i class="icon-search icon-white"></i>'), produto ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
     <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_produto_path(produto),:class => 'btn btn-danger', :title => 'Alterar' %></td>
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), produto, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>

@@ -2,6 +2,8 @@ Ceam::Application.routes.draw do
   resources :produtos
 
   resources :localizacaos
+  
+  resources :balancos
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
