@@ -44,6 +44,15 @@ class BalancosController < ApplicationController
 
     respond_to do |format|
       if @balanco.save
+        
+        params[:produtosAferidos].each do |p|
+          @produtoAferido = ProdutoAferido.new();
+          @produtoAferido.idProduto = p['idProduto'];
+          @produtoAferido.balanco = @balanco
+          @produtoAferido.save
+        end
+          
+        
         format.html { redirect_to @balanco, notice: 'Balanco was successfully created.' }
         format.json { render json: @balanco, status: :created, location: @balanco }
       else
