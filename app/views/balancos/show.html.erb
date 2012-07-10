@@ -5,6 +5,24 @@
   <%= @balanco.nome %>
 </p>
 
+<table class="table table-bordered table-striped table-condensed" >
+	<thead>
+  		<tr>
+    		<th>Nome</th>
+    		<th></th>
+    		<th></th>
+    		<th></th>
+  		</tr>
+	</thead>
+  <tbody>
+<% @balanco.produto_aferidos.each do |produto| %>
+  <tr>
+    <td width='100%'><%= produto.idProduto %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_balanco_path(@balanco) %> |
 <%= link_to 'Back', balancos_path %>

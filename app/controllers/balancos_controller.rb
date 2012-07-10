@@ -41,23 +41,13 @@ class BalancosController < ApplicationController
   # POST /balancos.json
   def create
     @balanco = Balanco.new(params[:balanco])
-
     respond_to do |format|
-      if @balanco.save 
-        
-        
-          @produtoAferido = ProdutoAferido.new();
-          @produtoAferido.idProduto = 1;
-          @produtoAferido.qtdeAferida = 1;
-          @produtoAferido.balanco_id = @balanco.id
-          @produtoAferido.save
-          
-        
-        format.html { redirect_to @balanco, notice: 'Balanco was successfully created.' }
-        format.json { render json: @balanco, status: :created, location: @balanco }
+      if @balanco.save        
+          format.html { redirect_to @balanco, notice: 'Balanco was successfully created.' }
+          format.json { render json: @balanco, status: :created, location: @balanco }
       else
-        format.html { render action: "new" }
-        format.json { render json: @balanco.errors, status: :unprocessable_entity }
+          format.html { render action: "new" }
+          format.json { render json: @balanco.errors, status: :unprocessable_entity }
       end
     end
   end
