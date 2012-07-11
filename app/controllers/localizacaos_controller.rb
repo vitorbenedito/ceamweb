@@ -2,8 +2,12 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos
   # GET /localizacaos.json
   def index
-
-    @localizacaos = Localizacao.paginate(:page => params[:page], :per_page => 10)
+    
+    if params[:format] != "json"
+      @localizacaos = Localizacao.paginate(:page => params[:page], :per_page => 10)
+   else
+      @localizacaos = Localizacao.all
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @localizacaos }
