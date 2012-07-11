@@ -1,10 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Descricao:</b>
+  <b>Descrição:</b>
   <%= @localizacao.descricao %>
 </p>
 
+<table class="table table-bordered table-striped table-condensed" >
+	<thead>
+  		<tr>
+    		<th>Produto</th>
+    		<th>Qtde. Estoque</th>
+  		</tr>
+	</thead>
+  <tbody>
+<% @localizacao.produtos.each do |produto| %>
+  <tr>
+    <td width='80%'><%= produto.nomeProduto %></td>
+    <td width='20%'><%= produto.estoque %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
 
-<%= link_to 'Edit', edit_localizacao_path(@localizacao) %> |
-<%= link_to 'Back', localizacaos_path %>
+
+<!-- <%= link_to 'Edit', edit_localizacao_path(@localizacao) %> | -->
+<%= link_to 'Voltar', localizacaos_path %>

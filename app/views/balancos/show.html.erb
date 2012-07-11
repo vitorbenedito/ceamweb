@@ -1,28 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Nome:</b>
+  <b>Nome Balanço:</b>
   <%= @balanco.nome %>
 </p>
 
 <table class="table table-bordered table-striped table-condensed" >
 	<thead>
   		<tr>
-    		<th>Nome</th>
-    		<th></th>
-    		<th></th>
-    		<th></th>
+    		<th>Produto</th>
+    		<th>Qtde. Estoque</th>
+    		<th>Qtde. Aferida</th>
   		</tr>
 	</thead>
   <tbody>
 <% @balanco.produto_aferidos.each do |produto| %>
   <tr>
-    <td width='100%'><%= produto.idProduto %></td>
+    <td width='70%'><%= produto.nomeProduto %></td>
+	<td width='15%'><%= produto.estoque %></td>
+	<td width='15%'><%= produto.qtdeAferida %></td>
   </tr>
 <% end %>
 </tbody>
 </table>
 
 
-<%= link_to 'Edit', edit_balanco_path(@balanco) %> |
-<%= link_to 'Back', balancos_path %>
+<!-- <%= link_to 'Edit', edit_balanco_path(@balanco) %> | -->
+<%= link_to 'Voltar', balancos_path %>

@@ -15,6 +15,16 @@ class BalancosController < ApplicationController
   def show
     @balanco = Balanco.find(params[:id])
     
+    @balanco.produto_aferidos.each do |p|
+      
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      
+      produtoVPSA = HTTParty.get(url)
+    
+      p.nomeProduto = produtoVPSA['descricao']
+      p.estoque = produtoVPSA['quantidadeEmEstoque']
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @balanco.produtos.to_json(:methods => [:nomeProduto,:estoque])}

@@ -10,7 +10,7 @@
     		<th>Descrição</th>
     		<th></th>
     		<th></th>
-    		<th></th>
+    		<!-- <th></th> -->
   		</tr>
 	</thead>
   <tbody>
@@ -18,7 +18,7 @@
   <tr>
     <td width='100%'><%= localizacao.descricao %></td>
     <td><%= link_to raw('<i class="icon-search icon-white"></i>'), localizacao ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
-    <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_localizacao_path(localizacao),:class => 'btn btn-danger', :title => 'Alterar' %></td>
+    <!-- <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_localizacao_path(localizacao),:class => 'btn btn-danger', :title => 'Alterar' %></td> -->
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), localizacao, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>
   </tr>
 <% end %>
