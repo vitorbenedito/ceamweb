@@ -45,7 +45,7 @@ class ProdutosController < ApplicationController
       
       produtosVPSA.each do |p|
         
-        if(count == 40)
+        if(count == 20)
           break
         end
         
