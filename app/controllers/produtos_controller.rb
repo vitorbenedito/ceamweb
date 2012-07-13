@@ -41,7 +41,14 @@ class ProdutosController < ApplicationController
       
       produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos')
       
+      count = 0
+      
       produtosVPSA.each do |p|
+        
+        if(count == 40)
+          break
+        end
+        
         produtoEncontrado = Produto.find_by_idProduto(p['id'])
         if(produtoEncontrado == nil)
           novoProduto = Produto.new
@@ -50,6 +57,8 @@ class ProdutosController < ApplicationController
           novoProduto.estoque = p['quantidadeEmEstoque']
           semLocalizacao.produtos << novoProduto
         end
+        
+        count = count + 1
       end
       
       @localizacoes << semLocalizacao
