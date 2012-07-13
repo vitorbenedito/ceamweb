@@ -6,21 +6,60 @@ class ProdutosController < ApplicationController
   require 'json'
   
   def index
-    @produtos = Produto.paginate(:page => params[:page], :per_page => 10)
+    if params[:format] != "json"
+      @produtos = Produto.paginate(:page => params[:page], :per_page => 10)
     
-    @produtos.each do |p|
+      @produtos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+        url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
       
-      produtoVPSA = HTTParty.get(url)
+        produtoVPSA = HTTParty.get(url)
     
-      p.nomeProduto = produtoVPSA['descricao']
-      p.estoque = produtoVPSA['quantidadeEmEstoque']
+        p.nomeProduto = produtoVPSA['descricao']
+        p.estoque = produtoVPSA['quantidadeEmEstoque']
+      end 
+    else
+      
+      @localizacoes = Localizacao.all
+      
+      @localizacoes.each do |l|
+        
+        l.produtos.each do |p|
+
+          url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+
+          produtoVPSA = HTTParty.get(url)
+
+          p.nomeProduto = produtoVPSA['descricao']
+          p.estoque = produtoVPSA['quantidadeEmEstoque']
+        end
+      end
+      
+      semLocalizacao = Localizacao.new
+      semLocalizacao.descricao = 'Sem Localizacao'
+      semLocalizacao.produtos = []
+      
+      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos')
+      
+      produtosVPSA.each do |p|
+        produtoEncontrado = Produto.find_by_idProduto(p['id'])
+        if(produtoEncontrado == nil)
+          novoProduto = Produto.new
+          novoProduto.nomeProduto = p['descricao']
+          novoProduto.idProduto = p['id']
+          novoProduto.estoque = p['quantidadeEmEstoque']
+          semLocalizacao.produtos << novoProduto
+        end
+      end
+      
+      @localizacoes << semLocalizacao
+      
     end
+    
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @produtos }
+      format.json { render json: @localizacoes, :include => { :produtos => {:methods => [:nomeProduto,:estoque]} } }
     end
   end
 

@@ -9,15 +9,17 @@
 	<thead>
   		<tr>
     		<th>Produto</th>
-    		<th>Qtde. Estoque</th>
+    		<th>Qtde. Estoque Atual</th>
+			<th>Qtde. Estoque </th>
     		<th>Qtde. Aferida</th>
   		</tr>
 	</thead>
   <tbody>
 <% @balanco.produto_aferidos.each do |produto| %>
   <tr>
-    <td width='70%'><%= produto.nomeProduto %></td>
+    <td width='55%'><%= produto.nomeProduto %></td>
 	<td width='15%'><%= produto.estoque %></td>
+	<td width='15%'><%= produto.qtdeEstoque %></td>
 	<td width='15%'><%= produto.qtdeAferida %></td>
   </tr>
 <% end %>

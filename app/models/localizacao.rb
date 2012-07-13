@@ -1,7 +1,7 @@
 class Localizacao < ActiveRecord::Base
   attr_accessible :descricao
   
-  has_many :produtos, :dependent => :destroy
+  has_many :produtos, :dependent => :destroy, :uniq => true
   
 
   def self.search(search)
