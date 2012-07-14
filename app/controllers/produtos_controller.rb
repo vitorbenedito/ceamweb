@@ -20,18 +20,21 @@ class ProdutosController < ApplicationController
       end 
     else
       
+      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos')
+      
       @localizacoes = Localizacao.all
       
       @localizacoes.each do |l|
-        
         l.produtos.each do |p|
-
-          url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
-
-          produtoVPSA = HTTParty.get(url)
-
-          p.nomeProduto = produtoVPSA['descricao']
-          p.estoque = produtoVPSA['quantidadeEmEstoque']
+          
+          produtosVPSA.each do |pVpsa|
+            
+            if p.idProduto == pVpsa['id']
+              p.nomeProduto = pVpsa['descricao']
+              p.estoque = pVpsa['quantidadeEmEstoque']
+              break
+            end
+          end
         end
       end
       
@@ -39,27 +42,30 @@ class ProdutosController < ApplicationController
       semLocalizacao.descricao = 'Sem Localizacao'
       semLocalizacao.produtos = []
       
-      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos')
-      
-      count = 0
-      
-      produtosVPSA.each do |p|
+      produtosVPSA.each do |pVpsa|
+       
+        encontrouProduto = false
         
-        if(count == 20)
-          break
+        @localizacoes.each do |l|
+          l.produtos.each do |p|
+              if p.idProduto == pVpsa['id']
+                encontrouProduto = true
+                break
+              end
+          end
+          if encontrouProduto 
+            break 
+          end
         end
-        
-        produtoEncontrado = Produto.find_by_idProduto(p['id'])
-        if(produtoEncontrado == nil)
-          novoProduto = Produto.new
-          novoProduto.nomeProduto = p['descricao']
-          novoProduto.idProduto = p['id']
-          novoProduto.estoque = p['quantidadeEmEstoque']
-          semLocalizacao.produtos << novoProduto
+        if !encontrouProduto
+            novoProduto = Produto.new
+            novoProduto.nomeProduto = pVpsa['descricao']
+            novoProduto.idProduto = pVpsa['id']
+            novoProduto.estoque = pVpsa['quantidadeEmEstoque']
+            semLocalizacao.produtos << novoProduto
         end
-        
-        count = count + 1
       end
+        
       
       @localizacoes << semLocalizacao
       
