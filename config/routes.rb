@@ -4,7 +4,9 @@ Ceam::Application.routes.draw do
   resources :localizacaos
   
   resources :balancos
-
+  
+#  root :to => 'balancos#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
