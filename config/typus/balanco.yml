@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Balanco:
+  fields:
+    default: nome
+    form: nome
+  relationships: produto_aferidos
+  application: Application

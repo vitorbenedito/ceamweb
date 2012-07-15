@@ -10,7 +10,7 @@ class LocalizacaosController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @localizacaos }
+      format.json { render json: @localizacaos, :include => :produtos  }
     end
   end
 

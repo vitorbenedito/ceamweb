@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Produto:
+  fields:
+    default: idProduto, qtdeAferida, localizacao_id
+    form: idProduto, qtdeAferida, localizacao_id
+  relationships: 
+  application: Application

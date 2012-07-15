@@ -6,6 +6,7 @@ gem 'bootstrap-will_paginate'
 gem 'jquery-rails'
 gem 'json'
 gem 'httparty'
+gem 'typus'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+ProdutoAferido:
+  fields:
+    default: idProduto, qtdeAferida, balanco_id, qtdeEstoque
+    form: idProduto, qtdeAferida, balanco_id, qtdeEstoque
+  relationships: 
+  application: Application
