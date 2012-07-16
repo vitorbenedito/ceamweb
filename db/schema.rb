@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20120713001829) do
 
   create_table "produtos", :force => true do |t|
     t.integer  "idProduto"
-    t.decimal  "qtdeAferida"
     t.integer  "localizacao_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
