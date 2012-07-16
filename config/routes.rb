@@ -4,6 +4,10 @@ Ceam::Application.routes.draw do
   resources :localizacaos
   
   resources :balancos
+  
+  match "/localizacaos/loadprodutos/:id" => "localizacaos#loadProdutos"
+  
+  match "/localizacaos/find/:descricao" => "localizacaos#find"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -34,6 +34,28 @@ class LocalizacaosController < ApplicationController
       format.json { render json: @localizacao.produtos.to_json(:methods => [:nomeProduto,:estoque])}
     end
   end
+  
+  def loadProdutos
+    @localizacao = Localizacao.find(params[:id])
+     
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @localizacao.produtos.to_json()}
+    end
+  end
+  
+  def find
+    @localizacao = Localizacao.find_by_descricao(params[:descricao])
+     
+    respond_to do |format|
+      format.html # show.html.erb
+      if @localizacao != nil && @localizacao.produtos != nil
+        format.json { render json: @localizacao.produtos.to_json()}
+      else
+        format.json { render json: '' }
+      end
+    end
+  end
 
   # GET /localizacaos/new
   # GET /localizacaos/new.json

@@ -6,7 +6,7 @@ class Localizacao < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('descricao LIKE ?', "%#{search}%")
+      where(:descricao => search)
     else
       scoped
     end
