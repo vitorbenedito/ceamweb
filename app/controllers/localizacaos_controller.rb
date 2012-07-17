@@ -1,4 +1,5 @@
 class LocalizacaosController < ApplicationController
+  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -60,6 +61,9 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new
   # GET /localizacaos/new.json
   def new
+    
+    response.headers['Cache-Control'] = 'public, max-age=300'
+  
     @localizacao = Localizacao.new
     
     url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'

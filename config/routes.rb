@@ -1,4 +1,7 @@
 Ceam::Application.routes.draw do
+  
+  root :to => 'balancos#index'
+  
   resources :produtos
 
   resources :localizacaos
@@ -8,7 +11,5 @@ Ceam::Application.routes.draw do
   match "/localizacaos/loadprodutos/:id" => "localizacaos#loadProdutos"
   
   match "/localizacaos/find/:descricao" => "localizacaos#find"
-
-#  root :to => 'balancos#index'
 
 end
