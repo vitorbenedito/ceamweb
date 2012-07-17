@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'json'
 gem 'httparty'
 gem 'typus'
+gem 'simple_form'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

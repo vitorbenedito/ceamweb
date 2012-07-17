@@ -1,7 +1,9 @@
 class Localizacao < ActiveRecord::Base
-  attr_accessible :descricao
+  attr_accessible :descricao,:id, :produtos_attributes
   
   has_many :produtos, :dependent => :destroy, :uniq => true
+  
+  accepts_nested_attributes_for :produtos
   
 
   def self.search(search)

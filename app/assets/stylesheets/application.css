@@ -11,3 +11,19 @@
  *= require_self
  *= require_tree .
  */
+
+.multiselect {
+    width:400px;
+    height:200px;
+    border:solid 1px #c0c0c0;
+    overflow:auto;
+}
+
+.multiselect label {
+    display:block;
+}
+
+.multiselect-on {
+    color:#ffffff;
+    background-color:#0088CC;
+}

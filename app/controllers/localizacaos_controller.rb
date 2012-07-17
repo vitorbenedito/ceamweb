@@ -61,6 +61,22 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new.json
   def new
     @localizacao = Localizacao.new
+    
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    
+    @produtos = []
+    
+    produtoVPSA = HTTParty.get(url)
+    
+    produtoVPSA.each do |p|
+      
+      produto = Produto.new
+      produto.nomeProduto = p['descricao']
+      produto.idProduto = p['id']
+      
+      @produtos << produto
+      
+    end   
 
     respond_to do |format|
       format.html # new.html.erb
@@ -76,10 +92,20 @@ class LocalizacaosController < ApplicationController
   # POST /localizacaos
   # POST /localizacaos.json
   def create
-    @localizacao = Localizacao.new(params[:localizacao])
+    ids = params[:produtos_attributes]
 
+    @localizacao = Localizacao.new(:descricao => params[:localizacao]['descricao'])
+    
     respond_to do |format|
       if @localizacao.save
+        
+        ids.each do |id|
+          produto = Produto.new
+          produto.idProduto = id
+          produto.localizacao_id = @localizacao.id
+          produto.save
+        end
+        
         format.html { redirect_to @localizacao, notice: 'Localizacao was successfully created.' }
         format.json { render json: @localizacao, status: :created, location: @localizacao }
       else
