@@ -62,7 +62,7 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new.json
   def new
     
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    response.headers['Cache-Control'] = 'public, max-age=1000'
   
     @localizacao = Localizacao.new
     
