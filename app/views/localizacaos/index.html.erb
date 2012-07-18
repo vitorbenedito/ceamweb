@@ -1,30 +1,26 @@
-<legend>Localizações</legend>
-	 <div style='text-align:right; width:100%;'>
-		<%= link_to 'Nova Localização', new_localizacao_path, :class => 'btn btn-primary' %>
-	</div>
-
+<%= render 'form' %>
+<p>
+<div style='text-align:right; width:100%;'>
+	<%= link_to 'Nova Localização', new_localizacao_path, :class => 'btn btn-primary' %>
+</div>
+</p>
 <table class="table table-bordered table-striped table-condensed" >
-	<thead>
-  		<tr>
-    		<th>Descrição</th>
-    		<th></th>
-    		<th></th>
-    		<!-- <th></th> -->
-  		</tr>
-	</thead>
+  <thead>
+    <tr>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+
   <tbody>
 <% @localizacaos.each do |localizacao| %>
-  <tr>
-    <td width='100%'><%= localizacao.descricao %></td>
-    <td><%= link_to raw('<i class="icon-search icon-white"></i>'), localizacao ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
-    <!-- <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_localizacao_path(localizacao),:class => 'btn btn-danger', :title => 'Alterar' %></td> -->
-    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), localizacao, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>
-  </tr>
+    <tr>
+      <td width='100%'><%= localizacao.descricao %></td>
+      <td><%= link_to raw('<i class="icon-search icon-white"></i>'), localizacao ,:class => 'btn btn-primary', :title => 'Detalhe'%></td>
+      <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), localizacao, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-primary', :title => 'Excluir' %></td>
+    </tr>
 <% end %>
-	<tr>
-		<td colspan='4'>
-			<%= will_paginate @localizacaos , :align => "center"%>
-		</td>
-	</tr>
-</tbody>
+    <tr>
+      <td colspan='4'> <%= will_paginate @localizacaos , :align => "center"%>	</td>
+    </tr>
+  </tbody>
 </table>

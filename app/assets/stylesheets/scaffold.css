@@ -31,8 +31,15 @@ a {
 	text-decoration: none;
 	color: #339CCB;
 }
-a:hover {
+
+a:focus{
+	outline:thin dotted #333;
+	outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+
+a:hover,a:active {
+	outline:0;
 }
+
 #wrapper {
 	margin: 0 auto;
 	padding: 0;
@@ -44,9 +51,14 @@ a:hover {
 	border-bottom: 10px solid #2AA1CC;
 }
 #header {
-	width: 950px;
+/*
+	width: 95%;
 	margin: 0 auto;
 	padding: 0px 0px 0px 30px;
+*/
+	width: 90%;
+	margin: 0 auto;
+	padding: 0px 0px 0px 0px;
 }
 /* Logo */
 #logo {
@@ -82,10 +94,9 @@ a:hover {
 /* Menu */
 #menu {
 	float: right;
-	width: 450px;
 	height: 90px;
 	margin: 0 auto;
-	padding: 0;
+	padding: 10;
 }
 #menu ul {
 	margin: 0;
@@ -146,6 +157,7 @@ table {
 	width: 100%;
 }
 th {
+	font-size: 1.2em;
 	border:0;
 	border-bottom:2px solid #555;
 	text-align: left;
