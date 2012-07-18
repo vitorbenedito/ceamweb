@@ -90,6 +90,30 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/1/edit
   def edit
     @localizacao = Localizacao.find(params[:id])
+    
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    
+    @produtos = []
+    
+    produtoVPSA = HTTParty.get(url)
+    
+    produtoVPSA.each do |p|
+      
+      produto = Produto.new
+      produto.nomeProduto = p['descricao']
+      produto.idProduto = p['id']
+
+      @localizacao.produtos.each do |pLoc|
+       
+        if pLoc.idProduto == produto.idProduto
+          produto.checked = 'checked="yes"'
+          break
+        end
+      end 
+      
+      @produtos << produto
+      
+    end
   end
 
   # POST /localizacaos
@@ -125,6 +149,16 @@ class LocalizacaosController < ApplicationController
 
     respond_to do |format|
       if @localizacao.update_attributes(params[:localizacao])
+        
+        ids = params[:produtos_attributes]
+        
+        ids.each do |id|
+          produto = Produto.new
+          produto.idProduto = id
+          produto.localizacao_id = @localizacao.id
+          produto.save
+        end
+        
         format.html { redirect_to @localizacao, notice: 'Localizacao was successfully updated.' }
         format.json { head :no_content }
       else

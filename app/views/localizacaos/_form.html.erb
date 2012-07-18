@@ -1,1 +1,18 @@
-<h2>Localizações</h2>
+<%= simple_form_for(@localizacao, :html => { :class => 'form-horizontal' }) do |f| %>
+
+	<%= f.input :descricao, :wrapper => :prepend, :label => false do %>
+	    <%= content_tag :span, "Descrição", :class => "add-on" %>
+	    <%= f.input_field :descricao %>
+	  <% end %>
+	<div class="controls">
+		<div class="multiselect">
+			<% @produtos.each do |produto| %>
+			
+	    	<label class="checkbox"> <input type="checkbox" <%=produto.checked%> name="produtos_attributes[]" id="<%=produto.idProduto%>" value="<%= produto.idProduto %>" ><%=produto.nomeProduto%></input></label>
+		<% end %>
+		</div>
+	</div>
+	<div class="form-actions">	
+    	<%= f.button  :submit, 'Salvar', :class => 'btn-primary' %>
+	</div>
+<% end %>

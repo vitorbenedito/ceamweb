@@ -2,7 +2,7 @@ class Produto < ActiveRecord::Base
   
   attr_accessible :idProduto, :localizacao_id
   
-  attr_accessor :nomeProduto, :estoque
+  attr_accessor :nomeProduto, :estoque, :checked
   
   belongs_to :localizacao
   
