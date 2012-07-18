@@ -61,8 +61,6 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new
   # GET /localizacaos/new.json
   def new
-    
-    response.headers['Cache-Control'] = 'public, max-age=1000'
   
     @localizacao = Localizacao.new
     
@@ -90,6 +88,7 @@ class LocalizacaosController < ApplicationController
 
   # GET /localizacaos/1/edit
   def edit
+    
     @localizacao = Localizacao.find(params[:id])
     
     url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
