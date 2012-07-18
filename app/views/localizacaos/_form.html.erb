@@ -7,7 +7,8 @@
 	<div class="controls">
 		<div class="multiselect">
 			<% @produtos.each do |produto| %>
-	    	<label class="checkbox"> <input type="checkbox" name="produtos_attributes[]" id="<%=produto.idProduto%>" value="<%= produto.idProduto %>" ><%=produto.nomeProduto%></input></label>
+			
+	    	<label class="checkbox"> <input type="checkbox" <%=produto.checked%> name="produtos_attributes[]" id="<%=produto.idProduto%>" value="<%= produto.idProduto %>" ><%=produto.nomeProduto%></input></label>
 		<% end %>
 		</div>
 	</div>
