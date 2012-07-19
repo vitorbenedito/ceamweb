@@ -6,7 +6,6 @@ gem 'bootstrap-will_paginate'
 gem 'jquery-rails'
 gem 'json'
 gem 'httparty'
-gem 'typus'
 gem 'simple_form'
 
 group :development, :test do
