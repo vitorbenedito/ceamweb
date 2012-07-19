@@ -25,20 +25,6 @@ p, ul, ol {
 	margin-top: 0;
 	line-height: 180%;
 }
-ul, ol {
-}
-a {
-	text-decoration: none;
-	color: #339CCB;
-}
-
-a:focus{
-	outline:thin dotted #333;
-	outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
-
-a:hover,a:active {
-	outline:0;
-}
 
 #wrapper {
 	margin: 0 auto;
