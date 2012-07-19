@@ -1,18 +1,22 @@
-<legend>Localizações</legend>
+
+<h2>Localização: <b style="font-size: 22px"><%= @localizacao.descricao %> </b> </h2>
+
 <p>
 <div style='text-align:right; width:100%;'>
 	<%= link_to 'Voltar', localizacaos_path, :class => 'btn btn-primary' %>
 </div>
 </p>
+
 <legend>Descrição: <%= @localizacao.descricao %></legend>
+
 <table class="table table-bordered table-striped table-condensed" >
-	<thead>
-  		<tr>
-	    		<th>Produto</th>
-	    		<th>Qtde. Estoque</th>
-  		</tr>
-	</thead>
-  <tbody>
+<thead>
+  <tr>
+    <th style="font-size: 1.5em">Produto</th>
+    <th style="font-size: 1.5em">Qtde. Estoque</th>
+  </tr>
+</thead>
+<tbody>
 <% @localizacao.produtos.each do |produto| %>
   <tr>
     <td width='80%'><%= produto.nomeProduto %></td>
