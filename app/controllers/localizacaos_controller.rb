@@ -22,7 +22,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao.produtos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
@@ -74,7 +74,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao = Localizacao.new
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
     
     @produtos = []
     
@@ -97,7 +97,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao = Localizacao.find(params[:id])
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
     
     @produtos = []
     

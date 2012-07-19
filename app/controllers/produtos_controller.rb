@@ -20,7 +20,7 @@ class ProdutosController < ApplicationController
       end 
     else
       
-      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos')
+      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos')
       
       @localizacoes = Localizacao.all
       

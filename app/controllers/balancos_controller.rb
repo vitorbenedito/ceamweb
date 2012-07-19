@@ -17,7 +17,7 @@ class BalancosController < ApplicationController
     
     @balanco.produto_aferidos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
