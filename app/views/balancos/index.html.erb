@@ -16,9 +16,9 @@
   <tr>
     <td width='80%'><%= balanco.nome %></td>
 	<td width='20%'><%= balanco.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-    <td><%= link_to raw('<i class="icon-search icon-white"></i>'), balanco ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
-    <!-- <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_balanco_path(balanco),:class => 'btn btn-danger', :title => 'Alterar' %></td> -->
-    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), balanco, method: :delete, data: { confirm: 'Ecluir registro ?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>
+    <td><%= link_to raw('<i class="icon-search icon-white"></i>'), balanco ,:class => 'btn btn-primary', :title => 'Detalhe'%></td>
+    <!-- <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_balanco_path(balanco),:class => 'btn btn-primary', :title => 'Alterar' %></td> -->
+    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), balanco, method: :delete, data: { confirm: 'Ecluir registro ?' },:class => 'btn btn-primary', :title => 'Excluir' %></td>
   </tr>
 <% end %>
 	<tr>

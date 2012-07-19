@@ -5,6 +5,8 @@ class Localizacao < ActiveRecord::Base
   
   accepts_nested_attributes_for :produtos
   
+  validates_uniqueness_of :descricao
+  
 
   def self.search(search)
     if search

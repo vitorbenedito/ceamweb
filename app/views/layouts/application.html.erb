@@ -1,52 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+Name	   : Regeneracy
+Description: A two-column, fixed-width design with dark color scheme.
+Version	: 1.0
+Released   : 20100529
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>CEAM</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-
-	<style>
-	      body {
-	        padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
-	      }
-	    </style>
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-
-	<div class="navbar navbar-fixed-top">
-	      <div class="navbar-inner">
-	        <div class="container">
-	          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </a>
-	          <h2><%= link_to "CEAM - Controle de Estoque Avançado", '#', id: "logo" %></h2>
-	          <div class="nav-collapse">
-	            <ul class="nav">
-			<li><%= link_to "Localização", localizacaos_path%></li>
-			<li><%= link_to "Balanço de Inventário", balancos_path%></li>
-	            </ul>
-	          </div><!--/.nav-collapse -->
-	        </div>
-	      </div>
-	    </div>
-
-    <div class="container">
-		
-      		<%= yield %>
-	
-    </div>
-	<footer class="navbar navbar-fixed-bottom">
-      <div class="navbar-inner">
-        <div class="container">
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><%= link_to "CEAM", '#', id: "logo" %></h1>
+				<p>Controle de estoque avançado</p>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><%= link_to "Localização", localizacaos_path%></li>
+					<li><%= link_to "Balanço de Inventário", balancos_path%></li>
+				</ul>
+			</div>
 		</div>
-	  </div>
-	</footer>
-  </body>
+	</div>
+	<!-- end #header -->
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+			<%= yield %>
+				<div style="clear: both;"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- end #page -->
+</div>
+</body>
 </html>
-

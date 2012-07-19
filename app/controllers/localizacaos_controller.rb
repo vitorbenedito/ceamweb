@@ -61,7 +61,17 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new
   # GET /localizacaos/new.json
   def new
+
+    carregarLocalizacao  
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @localizacao }
+    end
+  end
   
+  def carregarLocalizacao
+    
     @localizacao = Localizacao.new
     
     url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
@@ -78,12 +88,8 @@ class LocalizacaosController < ApplicationController
       
       @produtos << produto
       
-    end   
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @localizacao }
     end
+    
   end
 
   # GET /localizacaos/1/edit
@@ -130,12 +136,15 @@ class LocalizacaosController < ApplicationController
           produto = Produto.new
           produto.idProduto = id
           produto.localizacao_id = @localizacao.id
-          produto.save
+          if !produto.save
+            @localizacao.destroy
+          end
         end
         
-        format.html { redirect_to @localizacao, notice: 'Localizacao was successfully created.' }
+        format.html { redirect_to @localizacao, notice: 'Localizacao criada com sucesso.' }
         format.json { render json: @localizacao, status: :created, location: @localizacao }
       else
+        carregarLocalizacao
         format.html { render action: "new" }
         format.json { render json: @localizacao.errors, status: :unprocessable_entity }
       end

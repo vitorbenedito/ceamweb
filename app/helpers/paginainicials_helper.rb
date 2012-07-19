@@ -1,0 +1,2 @@
+module PaginainicialsHelper
+end

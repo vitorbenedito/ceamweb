@@ -7,7 +7,7 @@
 <table class="table table-bordered table-striped table-condensed" >
  <thead>
   	<tr>
-		<th>Localização</th>
+	<th>Localização</th>
     	<th>Produto</th>
     	<th></th>
     	<th></th>
@@ -18,10 +18,10 @@
 <% @produtos.each do |produto| %>
   <tr>
 	<td width='30%'><%= produto.localizacao.descricao %></td>
-    <td width='30%'><%= produto.nomeProduto %></td>
-	<td><%= link_to raw('<i class="icon-search icon-white"></i>'), produto ,:class => 'btn btn-danger', :title => 'Detalhe'%></td>
-    <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_produto_path(produto),:class => 'btn btn-danger', :title => 'Alterar' %></td>
-    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), produto, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger', :title => 'Excluir' %></td>
+	<td width='70%'><%= produto.nomeProduto %></td>
+	<td><%= link_to raw('<i class="icon-search icon-white"></i>'), produto ,:class => 'btn btn-primary', :title => 'Detalhe'%></td>
+	<td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_produto_path(produto),:class => 'btn btn-primary', :title => 'Alterar' %></td>
+	<td><%= link_to raw('<i class="icon-trash icon-white"></i>'), produto, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-primary', :title => 'Excluir' %></td>
   </tr>
 <% end %>
 <tr>
