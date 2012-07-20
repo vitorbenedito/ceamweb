@@ -1,26 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Nome Balanço:</b>
+<legend>
+ <b>Nome Balanço:</b>
   <%= @balanco.nome %>
-</p>
+</legend>
 
 <table class="table table-bordered table-striped table-condensed" >
 	<thead>
   		<tr>
-    		<th>Produto</th>
-    		<th>Qtde. Estoque Atual</th>
-			<th>Qtde. Estoque </th>
-    		<th>Qtde. Aferida</th>
+    		<th style='text-align:center;'>Produto</th>
+			<th style='text-align:center;'>Qtde. Estoque </th>
+    		<th style='text-align:center;'>Qtde. Aferida</th>
   		</tr>
 	</thead>
   <tbody>
 <% @balanco.produto_aferidos.each do |produto| %>
   <tr>
     <td width='55%'><%= produto.nomeProduto %></td>
-	<td width='15%'><%= produto.estoque %></td>
-	<td width='15%'><%= produto.qtdeEstoque %></td>
-	<td width='15%'><%= produto.qtdeAferida %></td>
+	<td width='15%' style='text-align:right;'><%=produto.qtdeEstoque %></td>
+	<td width='15%' style='text-align:right;'><%=produto.qtdeAferida %></td>
   </tr>
 <% end %>
 </tbody>

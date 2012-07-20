@@ -22,7 +22,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao.produtos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
@@ -61,11 +61,20 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new
   # GET /localizacaos/new.json
   def new
-    response.headers['Cache-Control'] = 'public, max-age=1000'
- 
+
+    carregarLocalizacao  
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @localizacao }
+    end
+  end
+  
+  def carregarLocalizacao
+    
     @localizacao = Localizacao.new
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
     
     @produtos = []
     
@@ -79,19 +88,16 @@ class LocalizacaosController < ApplicationController
       
       @produtos << produto
       
-    end   
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @localizacao }
     end
+    
   end
 
   # GET /localizacaos/1/edit
   def edit
+    
     @localizacao = Localizacao.find(params[:id])
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/'
+    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
     
     @produtos = []
     
@@ -130,12 +136,15 @@ class LocalizacaosController < ApplicationController
           produto = Produto.new
           produto.idProduto = id
           produto.localizacao_id = @localizacao.id
-          produto.save
+          if !produto.save
+            @localizacao.destroy
+          end
         end
         
-        format.html { redirect_to @localizacao, notice: 'Localizacao was successfully created.' }
+        format.html { redirect_to @localizacao, notice: 'Localizacao criada com sucesso.' }
         format.json { render json: @localizacao, status: :created, location: @localizacao }
       else
+        carregarLocalizacao
         format.html { render action: "new" }
         format.json { render json: @localizacao.errors, status: :unprocessable_entity }
       end

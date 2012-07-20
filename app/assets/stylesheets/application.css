@@ -17,13 +17,22 @@
     height:200px;
     border:solid 1px #c0c0c0;
     overflow:auto;
+	color:#000000;
 }
 
 .multiselect label {
     display:block;
+	margin: 0;
 }
 
 .multiselect-on {
     color:#ffffff;
     background-color:#0088CC;
+}
+
+.multiselect hr {
+border: 0;
+margin: 0;
+padding: 0;
+background: #cccccc;
 }

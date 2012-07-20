@@ -1,8 +1,0 @@
-# Use the README file as a reference to customize settings.
-
-Localizacao:
-  fields:
-    default: descricao
-    form: descricao
-  relationships: produtos
-  application: Application

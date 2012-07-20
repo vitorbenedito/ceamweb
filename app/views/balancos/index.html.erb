@@ -4,8 +4,8 @@
 <table class="table table-bordered table-striped table-condensed" >
 	<thead>
   		<tr>
-    		<th>Nome</th>
-    		<th>Data</th>
+    		<th style='text-align:center;'>Nome</th>
+    		<th style='text-align:center;'>Data</th>
     		<th></th>
 			<th></th>
     		<!-- <th></th> -->
@@ -15,7 +15,7 @@
 <% @balancos.each do |balanco| %>
   <tr>
     <td width='80%'><%= balanco.nome %></td>
-	<td width='20%'><%= balanco.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+	<td width='20%' style='text-align:center;'><%= balanco.created_at.strftime("%d/%m/%Y %H:%M") %></td>
     <td><%= link_to raw('<i class="icon-search icon-white"></i>'), balanco ,:class => 'btn btn-primary', :title => 'Detalhe'%></td>
     <!-- <td><%= link_to raw('<i class="icon-edit icon-white"></i>'), edit_balanco_path(balanco),:class => 'btn btn-primary', :title => 'Alterar' %></td> -->
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), balanco, method: :delete, data: { confirm: 'Ecluir registro ?' },:class => 'btn btn-primary', :title => 'Excluir' %></td>
