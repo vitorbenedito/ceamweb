@@ -80,9 +80,7 @@ class LocalizacaosController < ApplicationController
     
     @produtos = Array.new
     
-    if !cache
-      puts 'teste'
-      puts cache
+    if !cache && cache.length > 0
       @produtos = YAML::load(cache)
     else
       
