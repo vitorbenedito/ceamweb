@@ -1,5 +1,7 @@
 class LocalizacaosController < ApplicationController
   
+  require "yaml"
+  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -74,19 +76,29 @@ class LocalizacaosController < ApplicationController
     
     @localizacao = Localizacao.new
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
+    cache = Rails.cache.read("produtos")
     
-    @produtos = []
+    @produtos = Array.new
     
-    produtoVPSA = HTTParty.get(url)
-    
-    produtoVPSA.each do |p|
+    if !cache
+      @produtos = YAML::load(cache)
+    else
       
-      produto = Produto.new
-      produto.nomeProduto = p['descricao']
-      produto.idProduto = p['id']
+      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
       
-      @produtos << produto
+      produtoVPSA = HTTParty.get(url)
+    
+      produtoVPSA.each do |p|
+      
+        produto = ProdutoYaml.new
+        produto.nomeProduto = p['descricao']
+        produto.idProduto = p['id']
+      
+        @produtos << produto
+      
+      end
+      
+      Rails.cache.write("produtos", @produtos.to_yaml)
       
     end
     
