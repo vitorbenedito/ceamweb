@@ -1,7 +1,5 @@
 class LocalizacaosController < ApplicationController
   
-  require "yaml"
-  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -64,7 +62,7 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new.json
   def new
 
-    carregarLocalizacao  
+    carregarLocalizacao(false)  
 
     respond_to do |format|
       format.html # new.html.erb
@@ -72,16 +70,29 @@ class LocalizacaosController < ApplicationController
     end
   end
   
-  def carregarLocalizacao
+  def carregarLocalizacao(edit)
     
-    @localizacao = Localizacao.new
+    if !edit
+      @localizacao = Localizacao.new
+    end
     
     cache = Rails.cache.read("produtos")
     
     @produtos = Array.new
     
     if cache != nil && cache.length > 0
-      @produtos = YAML::load(cache)
+      @produtos = cache
+      if edit
+        @produtos.each do |produto|
+          @localizacao.produtos.each do |pLoc|
+            if pLoc.idProduto == produto.idProduto
+              produto.checked = 'checked="yes"'
+              break
+            end
+          end
+        end
+      end
+      
     else
       
       url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
@@ -93,12 +104,22 @@ class LocalizacaosController < ApplicationController
         produto = ProdutoYaml.new
         produto.nomeProduto = p['descricao']
         produto.idProduto = p['id']
+        
+        if edit
+          @localizacao.produtos.each do |pLoc|
+
+            if pLoc.idProduto == produto.idProduto
+              produto.checked = 'checked="yes"'
+              break
+            end
+          end
+        end
       
         @produtos << produto
       
       end
       
-      Rails.cache.write("produtos", @produtos.to_yaml)
+      Rails.cache.write("produtos", @produtos, :expires_in => 1.days)
       
     end
     
@@ -109,29 +130,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao = Localizacao.find(params[:id])
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
-    
-    @produtos = []
-    
-    produtoVPSA = HTTParty.get(url)
-    
-    produtoVPSA.each do |p|
-      
-      produto = Produto.new
-      produto.nomeProduto = p['descricao']
-      produto.idProduto = p['id']
-
-      @localizacao.produtos.each do |pLoc|
-       
-        if pLoc.idProduto == produto.idProduto
-          produto.checked = 'checked="yes"'
-          break
-        end
-      end 
-      
-      @produtos << produto
-      
-    end
+    carregarLocalizacao(true)
   end
 
   # POST /localizacaos
@@ -150,13 +149,14 @@ class LocalizacaosController < ApplicationController
           produto.localizacao_id = @localizacao.id
           if !produto.save
             @localizacao.destroy
+            break
           end
         end
         
         format.html { redirect_to @localizacao, notice: 'Localizacao criada com sucesso.' }
         format.json { render json: @localizacao, status: :created, location: @localizacao }
       else
-        carregarLocalizacao
+        carregarLocalizacao(false)
         format.html { render action: "new" }
         format.json { render json: @localizacao.errors, status: :unprocessable_entity }
       end

@@ -4,6 +4,7 @@ class ProdutosController < ApplicationController
   
   require 'open-uri'
   require 'json'
+  require 'yaml'
   
   def index
     if params[:format] != "json"
@@ -11,7 +12,7 @@ class ProdutosController < ApplicationController
     
       @produtos.each do |p|
       
-        url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/1/produtos/' + p.idProduto.to_s
+        url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
       
         produtoVPSA = HTTParty.get(url)
     
@@ -20,61 +21,23 @@ class ProdutosController < ApplicationController
       end 
     else
       
-      produtosVPSA = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos')
+      @produtos = nil
       
-      @localizacoes = Localizacao.all
+      cache =  Rails.cache.read("produtosVpsa")
       
-      @localizacoes.each do |l|
-        l.produtos.each do |p|
-          
-          produtosVPSA.each do |pVpsa|
-            
-            if p.idProduto == pVpsa['id']
-              p.nomeProduto = pVpsa['descricao']
-              p.estoque = pVpsa['quantidadeEmEstoque']
-              break
-            end
-          end
-        end
+      if cache == nil
+        @produtos = HTTParty.get('https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos')
+        Rails.cache.write("produtosVpsa",@produtos.to_yaml, :expires_in => 60.minutes)
+      else
+        @produtos = YAML::load( cache )
       end
-      
-      semLocalizacao = Localizacao.new
-      semLocalizacao.descricao = 'Sem Localizacao'
-      semLocalizacao.produtos = []
-      
-      produtosVPSA.each do |pVpsa|
-       
-        encontrouProduto = false
-        
-        @localizacoes.each do |l|
-          l.produtos.each do |p|
-              if p.idProduto == pVpsa['id']
-                encontrouProduto = true
-                break
-              end
-          end
-          if encontrouProduto 
-            break 
-          end
-        end
-        if !encontrouProduto
-            novoProduto = Produto.new
-            novoProduto.nomeProduto = pVpsa['descricao']
-            novoProduto.idProduto = pVpsa['id']
-            novoProduto.estoque = pVpsa['quantidadeEmEstoque']
-            semLocalizacao.produtos << novoProduto
-        end
-      end
-        
-      
-      @localizacoes << semLocalizacao
       
     end
     
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @localizacoes, :include => { :produtos => {:methods => [:nomeProduto,:estoque]} } }
+      format.json { render json: @produtos }
     end
   end
 
