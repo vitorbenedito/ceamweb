@@ -1,5 +1,7 @@
 class LocalizacaosController < ApplicationController
   
+  require "yaml"
+  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -22,7 +24,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao.produtos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
+      url = Ceam::Application::URL_VPSA + '/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
@@ -62,7 +64,7 @@ class LocalizacaosController < ApplicationController
   # GET /localizacaos/new.json
   def new
 
-    carregarLocalizacao  
+    carregarLocalizacao(false)  
 
     respond_to do |format|
       format.html # new.html.erb
@@ -70,23 +72,56 @@ class LocalizacaosController < ApplicationController
     end
   end
   
-  def carregarLocalizacao
+  def carregarLocalizacao(edit)
     
-    @localizacao = Localizacao.new
+    if !edit
+      @localizacao = Localizacao.new
+    end
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
+    cache = Rails.cache.read("produtos")
     
-    @produtos = []
+    @produtos = Array.new
     
-    produtoVPSA = HTTParty.get(url)
-    
-    produtoVPSA.each do |p|
+    if cache != nil && cache.length > 0
+      @produtos = YAML::load( cache )
+      if edit
+        @produtos.each do |produto|
+          @localizacao.produtos.each do |pLoc|
+            if pLoc.idProduto == produto.idProduto
+              produto.checked = 'checked="yes"'
+              break
+            end
+          end
+        end
+      end
       
-      produto = Produto.new
-      produto.nomeProduto = p['descricao']
-      produto.idProduto = p['id']
+    else
       
-      @produtos << produto
+      url = Ceam::Application::URL_VPSA + '/produtos/'
+      
+      produtoVPSA = HTTParty.get(url)
+    
+      produtoVPSA.each do |p|
+      
+        produto = ProdutoYaml.new
+        produto.nomeProduto = p['descricao']
+        produto.idProduto = p['id']
+        
+        if edit
+          @localizacao.produtos.each do |pLoc|
+
+            if pLoc.idProduto == produto.idProduto
+              produto.checked = 'checked="yes"'
+              break
+            end
+          end
+        end
+      
+        @produtos << produto
+      
+      end
+      
+      Rails.cache.write("produtos", @produtos.to_yaml, :expires_in => 1.days)
       
     end
     
@@ -97,29 +132,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao = Localizacao.find(params[:id])
     
-    url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
-    
-    @produtos = []
-    
-    produtoVPSA = HTTParty.get(url)
-    
-    produtoVPSA.each do |p|
-      
-      produto = Produto.new
-      produto.nomeProduto = p['descricao']
-      produto.idProduto = p['id']
-
-      @localizacao.produtos.each do |pLoc|
-       
-        if pLoc.idProduto == produto.idProduto
-          produto.checked = 'checked="yes"'
-          break
-        end
-      end 
-      
-      @produtos << produto
-      
-    end
+    carregarLocalizacao(true)
   end
 
   # POST /localizacaos
@@ -138,13 +151,14 @@ class LocalizacaosController < ApplicationController
           produto.localizacao_id = @localizacao.id
           if !produto.save
             @localizacao.destroy
+            break
           end
         end
         
         format.html { redirect_to @localizacao, notice: 'Localizacao criada com sucesso.' }
         format.json { render json: @localizacao, status: :created, location: @localizacao }
       else
-        carregarLocalizacao
+        carregarLocalizacao(false)
         format.html { render action: "new" }
         format.json { render json: @localizacao.errors, status: :unprocessable_entity }
       end
@@ -168,7 +182,7 @@ class LocalizacaosController < ApplicationController
           produto.save
         end
         
-        format.html { redirect_to @localizacao, notice: 'Localizacao was successfully updated.' }
+        format.html { redirect_to @localizacao, notice: 'Localizacao atualizada com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

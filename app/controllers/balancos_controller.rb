@@ -17,7 +17,7 @@ class BalancosController < ApplicationController
     
     @balanco.produto_aferidos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
+      url = Ceam::Application::URL_VPSA + '/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
@@ -53,7 +53,7 @@ class BalancosController < ApplicationController
     @balanco = Balanco.new(params[:balanco])
     respond_to do |format|
       if @balanco.save        
-          format.html { redirect_to @balanco, notice: 'Balanco was successfully created.' }
+          format.html { redirect_to @balanco, notice: 'Balanco criado com sucesso.' }
           format.json { render json: @balanco, status: :created, location: @balanco }
       else
           format.html { render action: "new" }
@@ -69,7 +69,7 @@ class BalancosController < ApplicationController
 
     respond_to do |format|
       if @balanco.update_attributes(params[:balanco])
-        format.html { redirect_to @balanco, notice: 'Balanco was successfully updated.' }
+        format.html { redirect_to @balanco, notice: 'Balanco atualizado com sucesso' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

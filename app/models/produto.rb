@@ -6,7 +6,7 @@ class Produto < ActiveRecord::Base
   
   belongs_to :localizacao
   
-  validates_uniqueness_of :idProduto, :scope => :localizacao_id, :msg => "This Association already exists."
+  validates_uniqueness_of :idProduto, :scope => :localizacao_id, :msg => "Ja existe o produto na localizacao."
   
   validates :idProduto, :uniqueness => true
   
