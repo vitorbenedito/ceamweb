@@ -1,5 +1,7 @@
 class LocalizacaosController < ApplicationController
   
+  require "yaml"
+  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -81,7 +83,7 @@ class LocalizacaosController < ApplicationController
     @produtos = Array.new
     
     if cache != nil && cache.length > 0
-      @produtos = cache
+      @produtos = YAML::load( cache )
       if edit
         @produtos.each do |produto|
           @localizacao.produtos.each do |pLoc|
@@ -119,7 +121,7 @@ class LocalizacaosController < ApplicationController
       
       end
       
-      Rails.cache.write("produtos", @produtos, :expires_in => 1.days)
+      Rails.cache.write("produtos", @produtos.to_yaml, :expires_in => 1.days)
       
     end
     
