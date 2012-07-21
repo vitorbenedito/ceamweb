@@ -24,7 +24,7 @@ class LocalizacaosController < ApplicationController
     
     @localizacao.produtos.each do |p|
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/' + p.idProduto.to_s
+      url = Ceam::Application::URL_VPSA + '/produtos/' + p.idProduto.to_s
       
       produtoVPSA = HTTParty.get(url)
     
@@ -97,7 +97,7 @@ class LocalizacaosController < ApplicationController
       
     else
       
-      url = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93/produtos/'
+      url = Ceam::Application::URL_VPSA + '/produtos/'
       
       produtoVPSA = HTTParty.get(url)
     
@@ -182,7 +182,7 @@ class LocalizacaosController < ApplicationController
           produto.save
         end
         
-        format.html { redirect_to @localizacao, notice: 'Localizacao was successfully updated.' }
+        format.html { redirect_to @localizacao, notice: 'Localizacao atualizada com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
