@@ -19,8 +19,9 @@ task :autaliza_cache_produtos => :environment do
       
     end
     
-    Rails.cache.write("produtos", produtos.to_yaml)
-    
+    if produtos.length > 0
+      Rails.cache.write("produtos", produtos.to_yaml, :expires_in => 60.minutes)
+    end
 end
 
 task :autaliza_cache_produtos_vpsa => :environment do
@@ -28,6 +29,8 @@ task :autaliza_cache_produtos_vpsa => :environment do
   produtos = nil
   
   produtos = HTTParty.get( Ceam::Application::URL_VPSA + '/produtos' )
-  Rails.cache.write("produtosVpsa",produtos.to_yaml)
+  if produtos.length > 0
+    Rails.cache.write("produtosVpsa",produtos.to_yaml, :expires_in => 60.minutes)
+  end
 
 end
