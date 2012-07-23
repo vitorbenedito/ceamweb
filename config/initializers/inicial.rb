@@ -1,5 +1,5 @@
-puts 'LIMPA CACHE'
-Rails.cache.clear
+require 'yaml'
+
 if Rails.env == "development"
     require_dependency "produto_yaml.rb"
 end

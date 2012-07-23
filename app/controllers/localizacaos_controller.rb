@@ -1,7 +1,5 @@
 class LocalizacaosController < ApplicationController
   
-  require "yaml"
-  
   # GET /localizacaos
   # GET /localizacaos.json
   def index

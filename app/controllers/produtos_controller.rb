@@ -1,7 +1,5 @@
 class ProdutosController < ApplicationController
   
-  require 'yaml'
-  
   # GET /produtos
   # GET /produtos.json
   

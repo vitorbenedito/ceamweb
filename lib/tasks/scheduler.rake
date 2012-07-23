@@ -1,6 +1,4 @@
 
-require "yaml"
-
 task :autaliza_cache_produtos => :environment do
     puts 'iniciou processamento autaliza_cache_produtos'
     produtos = Array.new
