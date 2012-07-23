@@ -14,16 +14,6 @@ task :autaliza_cache_produtos => :environment do
       produto = ProdutoYaml.new
       produto.nomeProduto = p['descricao']
       produto.idProduto = p['id']
-      
-      if edit
-        @localizacao.produtos.each do |pLoc|
-
-          if pLoc.idProduto == produto.idProduto
-            produto.checked = 'checked="yes"'
-            break
-          end
-        end
-      end
     
       produtos << produto
       
