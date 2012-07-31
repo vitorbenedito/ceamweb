@@ -21,5 +21,21 @@ class ProdutosController < ApplicationController
     end
     
   end
+  
+  # POST /produtos
+  # POST /produtos.json
+  def create
+    @produto = Produto.new(params[:produto])
+
+    respond_to do |format|
+    if @produto.save
+        format.html { redirect_to @produto, notice: 'Produto was successfully created.' }
+        format.json { render json: @produto, status: :created, location: @produto }
+    else
+        format.html { render action: "new" }
+        format.json { render json: @produto.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 end
