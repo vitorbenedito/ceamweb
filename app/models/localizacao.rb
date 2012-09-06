@@ -1,5 +1,5 @@
 class Localizacao < ActiveRecord::Base
-  attr_accessible :descricao,:id, :produtos_attributes
+  attr_accessible :descricao,:id, :produtos_attributes, :idEntidade
   
   has_many :produtos, :dependent => :destroy, :uniq => true
   

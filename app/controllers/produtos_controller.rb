@@ -17,7 +17,7 @@ class ProdutosController < ApplicationController
     end
     
     respond_to do |format|
-      format.json { render json: @produtos }
+      format.json { render json: @produtos, :callback => params[:callback] }
     end
     
   end

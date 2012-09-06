@@ -2,7 +2,7 @@ class Produto < ActiveRecord::Base
   
   attr_accessible :idProduto, :localizacao_id
   
-  attr_accessor :nomeProduto, :estoque, :checked
+  attr_accessor :nomeProduto, :estoque, :checked, :idEntidade
   
   belongs_to :localizacao
   
@@ -14,7 +14,7 @@ class Produto < ActiveRecord::Base
   
   def deletaProdutoExistenteEmOutraLocalizacao
     
-    produto = Produto.find_by_idProduto(idProduto)
+    Produto.joins(:localizacao).where('localizacao.idEntidade' => idEntidade)
     if(produto != nil && produto.localizacao_id != localizacao_id)
       produto.destroy
     end
