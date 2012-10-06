@@ -8,9 +8,14 @@
 /.bundle
 
 # Ignore the default SQLite database.
+/db/*.rb
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 *~
+
+# My ignores
+/.project
+Gemfile.lock
