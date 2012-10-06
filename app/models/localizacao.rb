@@ -1,7 +1,9 @@
 class Localizacao < ActiveRecord::Base
-  attr_accessible :descricao,:id, :produtos_attributes, :idEntidade
+  attr_accessible :descricao,:id, :produtos_attributes
   
   has_many :produtos, :dependent => :destroy, :uniq => true
+  
+  has_one :entidade
   
   accepts_nested_attributes_for :produtos
   

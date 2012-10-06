@@ -1,5 +1,7 @@
 class LocalizacaosController < ApplicationController
   
+  before_filter :autenticar_usuario?
+  
   # GET /localizacaos
   # GET /localizacaos.json
   def index
@@ -21,10 +23,8 @@ class LocalizacaosController < ApplicationController
     @localizacao = Localizacao.find(params[:id])
     
     @localizacao.produtos.each do |p|
-      
-      url = Ceam::Application::URL_VPSA + '/produtos/' + p.idProduto.to_s
-      
-      produtoVPSA = HTTParty.get(url)
+
+      produtoVPSA = HTTParty.get( url_vpsa_load_produtos p.idProduto.to_s '93' )
     
       p.nomeProduto = produtoVPSA['descricao']
       p.estoque = produtoVPSA['quantidadeEmEstoque']

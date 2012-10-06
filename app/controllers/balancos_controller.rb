@@ -1,6 +1,9 @@
 class BalancosController < ApplicationController
   # GET /balancos
   # GET /balancos.json
+  
+  before_filter :autenticar_usuario?
+  
   def index
 
     @balancos = Balanco.paginate(:page => params[:page], :per_page => 10)

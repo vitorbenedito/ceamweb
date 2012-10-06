@@ -11,20 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803143519) do
+ActiveRecord::Schema.define(:version => 20120914195403) do
 
   create_table "balancos", :force => true do |t|
     t.string   "nome"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "idEntidade"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "entidade_id"
   end
+
+  create_table "entidades", :force => true do |t|
+    t.integer  "idEntidadeVpsa"
+    t.integer  "cnpjEmpresa"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "entidades", ["idEntidadeVpsa", "cnpjEmpresa"], :name => "index_entidades_on_idEntidadeVpsa_and_cnpjEmpresa", :unique => true
 
   create_table "localizacaos", :force => true do |t|
     t.string   "descricao"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "idEntidade"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "entidade_id"
   end
 
   create_table "produto_aferidos", :force => true do |t|

@@ -3,6 +3,8 @@ class Balanco < ActiveRecord::Base
   
   has_many :produto_aferidos, :dependent => :destroy
   
+  has_one :entidade
+  
   accepts_nested_attributes_for :produto_aferidos
 
   

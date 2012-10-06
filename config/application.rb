@@ -59,6 +59,8 @@ module Ceam
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    URL_VPSA = 'https://www.vpsa.com.br/estoque/rest/externo/showroom/93'
+    URL_VPSA = 'https://www.vpsa.com.br/apps/api/'
+    
+    API_VPSA_PRODUTOS = 'produtos'
   end
 end

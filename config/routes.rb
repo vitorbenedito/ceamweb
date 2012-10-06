@@ -11,5 +11,10 @@ Ceam::Application.routes.draw do
   match "/localizacaos/loadprodutos/:id" => "localizacaos#loadProdutos"
   
   match "/localizacaos/find/:descricao" => "localizacaos#find"
+  
+  
+  get "oauth/authorization"
+  get "oauth/callback"
+  delete "oauth/logout"
 
 end
