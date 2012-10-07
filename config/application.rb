@@ -62,5 +62,6 @@ module Ceam
     URL_VPSA = 'https://www.vpsa.com.br/apps/api/'
     
     API_VPSA_PRODUTOS = 'produtos'
+    API_VPSA_ENTIDADES = 'entidades'
   end
 end

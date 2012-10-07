@@ -5,11 +5,20 @@ class BalancosController < ApplicationController
   before_filter :autenticar_usuario?
   
   def index
+    entidades = HTTParty.get(url_vpsa_load_entidades)
+
+    @entidades = Array.new
+    
+    entidades.each do |entidade|
+      @entidades << Entidade.create_from_hash( entidade )
+    end
+    puts @entidades.inspect
 
     @balancos = Balanco.paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @balancos }
+      
     end
   end
 

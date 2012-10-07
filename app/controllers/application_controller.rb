@@ -17,12 +17,16 @@ class ApplicationController < ActionController::Base
   
   def url_vpsa( api_vpsa,entidades )
     
-    Ceam::Application::URL_VPSA + api_vpsa + '?token=' + usuario[:access_token] + '&entidades=' + entidades
+    Ceam::Application::URL_VPSA + api_vpsa + '?tokeran=' + usuario[:access_token] + '&entidades=' + entidades
     
   end
   
   def url_vpsa_load_produtos( idProduto, entidades )
     url_vpsa Ceam::Application::API_VPSA_PRODUTOS + '/' + idProduto, entidades
+  end
+  
+  def url_vpsa_load_entidades( )
+    Ceam::Application::URL_VPSA + '/' + Ceam::Application::API_VPSA_ENTIDADES + '?token=' + usuario[:access_token]
   end
   
 end

@@ -1,6 +1,8 @@
 <div>
 <legend>Balanço de Inventário</legend>
 
+<%= select_tag "entidades", options_from_collection_for_select(@entidades, "id", "nome") %>
+
 <table class="table table-bordered table-striped table-condensed" >
 	<thead>
   		<tr>
